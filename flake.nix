@@ -9,7 +9,7 @@
         let
           pkgs = import nixpkgs { inherit system; };
           script-id = "system";
-          deps = with pkgs; [ bash ];
+          deps = with pkgs; [ bashInteractive ];
           script = (pkgs.writeScriptBin script-id (builtins.readFile ./src/script.sh)).overrideAttrs(old: {
             buildCommand = "${old.buildCommand}\n patchShebangs $out";
           });
