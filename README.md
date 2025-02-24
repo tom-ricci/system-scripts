@@ -11,4 +11,4 @@
 Use `system --help` for more information.
 
 ## building
-See `flake.nix`.a
+See `flake.nix`.
