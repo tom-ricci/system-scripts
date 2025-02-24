@@ -12,6 +12,3 @@ Use `system --help` for more information.
 
 ## building
 See `flake.nix`.
-
-## development
-test
