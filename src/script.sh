@@ -6,6 +6,7 @@ if ! [[ -v SYSTEM_SCRIPTS_CONFIG_ROOT ]]; then
 fi
 
 REPO_ROOT=$SYSTEM_SCRIPTS_CONFIG_ROOT
+AMEND=$([ "$2" = "amend" ] && echo 1 || echo 0)
 
 check_pwd () {
     if ! pwd | grep -q "^$REPO_ROOT"; then
@@ -28,6 +29,9 @@ check_git () {
 commit () {
     if ! [[ $(git rev-parse --is-inside-work-tree) ]]; then return 0; fi
     git add "$REPO_ROOT"
+    if [ "$AMEND" ]; then
+        git commit --amend --no-edit
+    fi
     read -p "Commit message: " msg
     git commit -m "$msg"
 }
@@ -52,15 +56,17 @@ if [[ "$1" == "--help" || "$1" == "help" ]]; then
     echo "                                                                                                     "
     echo "                                                                                                     "
     echo "                                                                                                     "
-    echo "           system update .... Updates \`/config/flake.lock\` with the newest                           "
+    echo "           system update .... Updates \`/config/flake.lock\` with the newest                         "
     echo "                              hashes in each channel and rebuilds the system                         "
-    echo "                              if any packages have updates                                           "
+    echo "                              if any packages have updates. Append \"amend\"                           "
+    echo "                              to amend the last commit with this update                              "
     echo "                                                                                                     "
     echo "                                                                                                     "
     echo "                                                                                                     "
     echo "           system watch ..... Watches for all dconf changes and prints them                          "
     echo "                              to stdout in a Nix-compatible format, ready to                         "
-    echo "                              be added to your config                                                "
+    echo "                              be added to your config. Append \"amend\" to                             "
+    echo "                              amend the last commit with this rebuild                                "
     echo "                                                                                                     "
     echo "                                                                                                     "
     echo "                                                                                                     "
