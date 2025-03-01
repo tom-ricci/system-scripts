@@ -33,6 +33,7 @@ commit () {
     git add "$REPO_ROOT"
     if [ "$AMEND" -eq 0 ]; then
         git commit --amend --no-edit
+        return 0
     fi
     read -p "Commit message: " msg
     git commit -m "$msg"
