@@ -8,8 +8,6 @@ fi
 REPO_ROOT=$SYSTEM_SCRIPTS_CONFIG_ROOT
 AMEND=$([ "$2" = "amend" ] && echo 0 || echo 1)
 
-echo $AMEND
-
 check_pwd () {
     if ! pwd | grep -q "^$REPO_ROOT"; then
         echo "Please move to $REPO_ROOT first!"
