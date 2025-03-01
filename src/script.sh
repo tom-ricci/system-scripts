@@ -6,7 +6,9 @@ if ! [[ -v SYSTEM_SCRIPTS_CONFIG_ROOT ]]; then
 fi
 
 REPO_ROOT=$SYSTEM_SCRIPTS_CONFIG_ROOT
-AMEND=$([ "$2" = "amend" ] && echo 1 || echo 0)
+AMEND=$([ "$2" = "amend" ] && echo 0 || echo 1)
+
+echo $AMEND
 
 check_pwd () {
     if ! pwd | grep -q "^$REPO_ROOT"; then
@@ -29,7 +31,7 @@ check_git () {
 commit () {
     if ! [[ $(git rev-parse --is-inside-work-tree) ]]; then return 0; fi
     git add "$REPO_ROOT"
-    if [ "$AMEND" ]; then
+    if [ "$AMEND" -eq 0 ]; then
         git commit --amend --no-edit
     fi
     read -p "Commit message: " msg
