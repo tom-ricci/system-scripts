@@ -9,7 +9,7 @@
         let
           pkgs = import nixpkgs { inherit system; };
           script-id = "system";
-          deps = with pkgs; [ bashInteractive git coreutils gnugrep sudo nix nixos-rebuild dconf gawk ];
+          deps = with pkgs; [ bashInteractive git coreutils gnugrep nix nixos-rebuild dconf gawk ];
           script = (pkgs.writeScriptBin script-id (builtins.readFile ./src/script.sh)).overrideAttrs(old: {
             buildCommand = "${old.buildCommand}\n patchShebangs $out";
           });

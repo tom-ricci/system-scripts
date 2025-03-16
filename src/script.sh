@@ -16,7 +16,7 @@ check_pwd () {
 }
 
 force_sudo () {
-    sudo true || exit 1
+    /run/wrappers/bin/sudo true || exit 1
 }
 
 check_git () {
@@ -83,12 +83,12 @@ elif [[ "$1" == "rebuild" ]]; then
     check_pwd
     force_sudo
     commit
-    sudo nixos-rebuild switch --flake "$REPO_ROOT"
+    /run/wrappers/bin/sudo nixos-rebuild switch --flake "$REPO_ROOT"
 elif [[ "$1" == "update" ]]; then
     check_pwd
     force_sudo
     commit
-    sudo nix flake update --flake "$REPO_ROOT"
+    /run/wrappers/bin/sudo nix flake update --flake "$REPO_ROOT"
 elif [[ "$1" == "commit" ]]; then
     check_pwd
     check_git
