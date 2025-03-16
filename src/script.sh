@@ -30,7 +30,7 @@ check_git () {
 commit () {
     if ! [[ $(git rev-parse --is-inside-work-tree) ]]; then return 0; fi
     git add "$REPO_ROOT"
-    if [ "$AMEND" -eq 0 ]; then
+    if [ "$AMEND" -eq 0 ] || [ "$1" -eq 0 ]; then
         git commit --amend --no-edit
         return 0
     fi
@@ -89,17 +89,18 @@ elif [[ "$COMMAND" == "--version" || "$COMMAND" == "version" ]]; then
 elif [[ "$COMMAND" == "rebuild" ]]; then
     check_pwd
     force_sudo
-    commit
+    commit 1
     /run/wrappers/bin/sudo nixos-rebuild switch --flake "$REPO_ROOT"
 elif [[ "$COMMAND" == "update" ]]; then
     check_pwd
     force_sudo
-    commit
+    commit 1
     /run/wrappers/bin/sudo nix flake update --flake "$REPO_ROOT"
+    commit 0
 elif [[ "$COMMAND" == "commit" ]]; then
     check_pwd
     check_git
-    commit
+    commit 1
 elif [[ "$COMMAND" == "log" ]]; then
     check_pwd
     check_git
