@@ -7,6 +7,7 @@ fi
 
 REPO_ROOT=$SYSTEM_SCRIPTS_CONFIG_ROOT
 AMEND=$([ "$2" = "amend" ] && echo 0 || echo 1)
+COMMAND="${$1,,}"
 
 check_pwd () {
     if ! pwd | grep -q "^$REPO_ROOT"; then
@@ -37,7 +38,7 @@ commit () {
     git commit -m "$msg"
 }
 
-if [[ "$1" == "--help" || "$1" == "help" ]]; then
+if [[ "$COMMAND" == "--help" || "$COMMAND" == "help" ]]; then
     echo "                                                                                                     "
     echo "                                                                                                     "
     echo "                                                                                                     "
@@ -79,25 +80,31 @@ if [[ "$1" == "--help" || "$1" == "help" ]]; then
     echo "           system log ....... Provides a summary commit history of the system                        "
     echo "                                                                                                     "
     echo "                                                                                                     "
-elif [[ "$1" == "rebuild" ]]; then
+    echo "                                                                                                     "
+    echo "           system version ... Lists the current version of system-scripts                            "
+    echo "                                                                                                     "
+    echo "                                                                                                     "
+elif [[ "$COMMAND" == "--version" || "$COMMAND" == "version" ]]; then
+    echo "1.0.0"
+elif [[ "$COMMAND" == "rebuild" ]]; then
     check_pwd
     force_sudo
     commit
     /run/wrappers/bin/sudo nixos-rebuild switch --flake "$REPO_ROOT"
-elif [[ "$1" == "update" ]]; then
+elif [[ "$COMMAND" == "update" ]]; then
     check_pwd
     force_sudo
     commit
     /run/wrappers/bin/sudo nix flake update --flake "$REPO_ROOT"
-elif [[ "$1" == "commit" ]]; then
+elif [[ "$COMMAND" == "commit" ]]; then
     check_pwd
     check_git
     commit
-elif [[ "$1" == "log" ]]; then
+elif [[ "$COMMAND" == "log" ]]; then
     check_pwd
     check_git
     git log --oneline
-elif [[ "$1" == "watch" ]]; then
+elif [[ "$COMMAND" == "watch" ]]; then
     # horrible awk command brought to you by gpt-4o
     dconf watch / | awk '
         $0 ~ /^\// {
