@@ -125,7 +125,7 @@ elif [[ "$COMMAND" == "watch" ]]; then
               sub(/^'\''/, "", val);
               sub(/'\''$/, "", val);
             }
-            printf "\"%s\".%s = \"%s\";\n", ns, key, val;
+            printf "\"%s\".%s = \"%s\";\n\n", ns, key, val;
             next;
         }
     '
