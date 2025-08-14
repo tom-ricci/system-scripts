@@ -31,11 +31,11 @@ commit () {
     if ! [[ $(git rev-parse --is-inside-work-tree) ]]; then return 0; fi
     git add "$REPO_ROOT"
     if [ "$AMEND" -eq 0 ] || [ "$1" -eq 0 ]; then
-        git commit --amend --no-edit
+        git commit --amend --no-edit --allow-empty
         return 0
     fi
     read -p "Commit message: " msg
-    git commit -m "$msg"
+    git commit --allow-empty -m "$msg"
 }
 
 if [[ "$COMMAND" == "--help" || "$COMMAND" == "help" ]]; then
