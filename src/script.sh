@@ -5,7 +5,7 @@ if ! [[ -v SYSTEM_SCRIPTS_CONFIG_ROOT ]]; then
     exit 1
 fi
 
-SYS_HOSTNAME=$(hostname)
+SYS_HOSTNAME=$(uname -n)
 REPO_ROOT=$SYSTEM_SCRIPTS_CONFIG_ROOT
 AMEND=$([ "$2" = "amend" ] && echo 0 || echo 1)
 COMMAND="${1,,}"
