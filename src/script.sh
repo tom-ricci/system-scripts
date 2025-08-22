@@ -36,7 +36,7 @@ commit () {
         return 0
     fi
     read -p "Commit message: " msg
-    git commit --allow-empty -m "[REBUILD] [$SYS_HOSTNAME] $msg"
+    git commit --allow-empty -m "[UPDATE/REBUILD] [$SYS_HOSTNAME] $msg"
 }
 
 if [[ "$COMMAND" == "--help" || "$COMMAND" == "help" ]]; then
