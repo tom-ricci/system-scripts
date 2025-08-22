@@ -5,6 +5,7 @@ if ! [[ -v SYSTEM_SCRIPTS_CONFIG_ROOT ]]; then
     exit 1
 fi
 
+SYS_HOSTNAME=$(hostname)
 REPO_ROOT=$SYSTEM_SCRIPTS_CONFIG_ROOT
 AMEND=$([ "$2" = "amend" ] && echo 0 || echo 1)
 COMMAND="${1,,}"
@@ -35,7 +36,7 @@ commit () {
         return 0
     fi
     read -p "Commit message: " msg
-    git commit --allow-empty -m "$msg"
+    git commit --allow-empty -m "[REBUILD] [$SYS_HOSTNAME] $msg"
 }
 
 if [[ "$COMMAND" == "--help" || "$COMMAND" == "help" ]]; then
