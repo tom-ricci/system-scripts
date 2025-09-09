@@ -35,7 +35,6 @@ commit () {
         git commit --amend --no-edit --allow-empty
         return 0
     fi
-    read -p "Commit message: " msg
     git commit --allow-empty -m "[UPDATE/REBUILD] [$SYS_HOSTNAME] +"
 }
 
