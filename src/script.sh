@@ -32,7 +32,7 @@ commit () {
     if ! [[ $(git rev-parse --is-inside-work-tree) ]]; then return 0; fi
     git add "$REPO_ROOT"
     if [ "$AMEND" -eq 0 ] || [ "$1" -eq 0 ]; then
-        git commit --amend --no-edit --allow-empty
+        git commit --allow-empty -m "[UPDATE/REBUILD] [$SYS_HOSTNAME] +"
         return 0
     fi
     read -p "Commit message: " msg
