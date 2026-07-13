@@ -1,7 +1,7 @@
 {
   description = "NixOS system management utility";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/cdd2ef009676ac92b715ff26630164bb88fec4e0"; # most recent commit in the nixos-24.11 channel at unix timestamp 1742121143
+    nixpkgs.url = "github:nixos/nixpkgs/e7a3ca8092b61ff85b6a45bf863ea2b2d6a661b3"; # most recent commit in the nixos-24.11 channel at unix timestamp 1742121143
     flake-utils.url = "github:numtide/flake-utils/11707dc2f618dd54ca8739b309ec4fc024de578b"; # most recent commit in the repo at unix timestamp 1742121143
   };
   outputs = { self, nixpkgs, flake-utils }:
