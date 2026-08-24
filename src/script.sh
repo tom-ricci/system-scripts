@@ -90,12 +90,12 @@ elif [[ "$COMMAND" == "rebuild" ]]; then
     check_pwd
     force_sudo
     commit 1
-    /run/wrappers/bin/sudo nixos-rebuild switch --flake "$REPO_ROOT"
+    /run/wrappers/bin/sudo nixos-rebuild switch --flake "git+file://$REPO_ROOT?lfs=1"
 elif [[ "$COMMAND" == "update" ]]; then
     check_pwd
     force_sudo
     commit 1
-    /run/wrappers/bin/sudo nix flake update --flake "$REPO_ROOT"
+    /run/wrappers/bin/sudo nix flake update --flake "git+file://$REPO_ROOT?lfs=1"
     commit 0
 elif [[ "$COMMAND" == "commit" ]]; then
     check_pwd
